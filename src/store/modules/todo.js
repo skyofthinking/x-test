@@ -31,7 +31,7 @@ const todo = {
     },
 
     plugins: store => {
-        store.subscribe((mutations, { todos }) => {
+        store.subscribe((mutation, { todos }) => {
             console.log('plugins')
             window.localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
         })

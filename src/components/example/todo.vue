@@ -1,12 +1,11 @@
 <template>
-    <li class="todo-line">
-        <h3>
-            <input type="checkbox" @click="itemCheck(todoItem)">
-            <p class="item-label" v-bind:class="{ 'line-through': checked }">{{ index + 1 }} . {{ todoItem.text }} </p>
-            <p class="item-status" v-if="todoItem.done">finished</p>
-            <p class="item-delete" @click="deleteClick">Delete</p>
-        </h3>
-    </li>
+    <div class="text item">
+        <el-checkbox v-model="checked" @change="itemCheck(todoItem)">
+            <span> {{ index + 1 }} . {{ todoItem.text }} </span>
+            <el-button type="success" size="mini" v-if="todoItem.done">完成</el-button>
+            <el-button type="danger" class="item-delete" size="mini" @click="deleteClick">删除</el-button>
+        </el-checkbox>
+    </div>
 </template>
 
 <script>
@@ -32,39 +31,19 @@ export default {
 </script>
 
 <style scoped>
-.todo-line {
-    height: 30px;
+.text {
+    font-size: 14px;
 }
 
-.item-status {
-    display: inline;
-    background: red;
-    color: white;
-    padding: 0 5px;
-    font-size: 12px;
+.item {
+    padding: 10px 0;
 }
 
 .item-delete {
     display: none;
-    text-decoration: underline;
-    font-size: 12px;
-    color: gray;
-    cursor: pointer;
 }
 
-.item-label {
-    display: inline;
-}
-
-.line-through {
-    text-decoration: line-through;
-}
-
-h3:hover {
-    text-decoration: line-through;
-}
-
-h3:hover .item-delete {
+.item:hover .item-delete {
     display: inline;
 }
 </style>

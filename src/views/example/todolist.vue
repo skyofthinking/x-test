@@ -8,9 +8,9 @@
                 <el-input v-model="form.name"></el-input>
             </el-form-item>
         </el-form>
-        <ul>
+        <el-card class="box-card">
             <todo v-for="(todoItem, index) in todoList" v-bind:key="todoItem.index" :todoItem="todoItem" :index="index"></todo>
-        </ul>
+        </el-card>
     </div>
 </template>
 
