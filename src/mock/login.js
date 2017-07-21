@@ -1,4 +1,7 @@
 import { param2Obj } from 'utils';
+import AV from 'leancloud-storage';
+import initLeanCloud from '@/utils/initleancloud';
+initLeanCloud();
 
 const userMap = {
     admin: {
@@ -31,6 +34,34 @@ const userMap = {
 export default {
     login: config => {
         const { email } = JSON.parse(config.body);
+
+        let InUser = AV.Object.extend('in_user');
+        let inUser = new InUser();
+        inUser.save({
+            role: ['admin'],
+            token: 'admin',
+            introduction: '超级管理员',
+            avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+            name: 'Super Admin'
+        }).then(function (object) {
+            console.log('object id = ' + object.id);
+        }, function (error) {
+            console.error(error);
+        });
+
+        let InStock = AV.Object.extend('in_stock');
+        let inStock = new InStock();
+        inStock.save({
+            name: '兴业银行',
+            code: '601166',
+            market: "CN",
+            subdivision: "SH"            
+        }).then(function (object) {
+            console.log('object id = ' + object.id);
+        }, function (error) {
+            console.error(error);
+        });
+
         return {
             code: 20000,
             data: userMap[email.split('@')[0]]

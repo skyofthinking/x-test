@@ -26,6 +26,8 @@ const UserEx = _import('sys/userex');
 /* example */
 const TodoList = _import('example/todolist');
 
+/* invest */
+const Stock = _import('invest/stock');
 
 Vue.use(Router);
 
@@ -96,7 +98,8 @@ export const asyncRouterMap = [
     name: '测试示例',
     icon: 'zujian',
     children: [
-      { path: 'todo', component: TodoList, name: 'TodoList', meta: { role: ['admin'] } }
+      { path: 'todo', component: TodoList, name: 'TodoList', meta: { role: ['admin'] } },
+      { path: 'stock', component: Stock, name: '证券管理', meta: { role: ['admin'] } }      
     ]
   },
 

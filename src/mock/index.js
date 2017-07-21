@@ -2,6 +2,7 @@ import Mock from 'mockjs';
 import login_api from './login';
 import article_api from './article';
 import user_api from './user';
+import stock_api from './stock';
 
 Mock.mock(/\/user\/login/, 'post', login_api.login);
 Mock.mock(/\/user\/info\.*/, 'get', login_api.getInfo)
@@ -14,5 +15,9 @@ Mock.mock(/\/table\/list/, 'get', article_api.getList);
 Mock.mock(/\/user\/list/, 'get', user_api.getList);
 Mock.mock(/\/userex\/list/, 'get', user_api.getExList);
 Mock.mock(/\/userex\/pv/, 'get', user_api.getExPv);
+
+/* Stock */
+Mock.mock(/\/stock\/list/, 'post', stock_api.list);
+Mock.mock(/\/stock\/pv/, 'post', stock_api.pv);
 
 export default Mock;
