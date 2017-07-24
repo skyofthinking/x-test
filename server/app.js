@@ -34,6 +34,10 @@ app.get('/', (req, res) => {
 });
 
 app.get('/app', routes.index);
+app.get(/\/stock\/list/, routes.stock_list);
+app.get(/\/stock\/insert/, routes.stock_insert);
+app.get(/\/stock\/update/, routes.stock_update);
+app.get(/\/stock\/delete/, routes.stock_delete);
 
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
