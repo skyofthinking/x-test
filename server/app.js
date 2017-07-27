@@ -6,10 +6,16 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 let fs = require('fs');
 
-var routes = require('./routes/route_app');
+// init
+var initLeanCloud = require('./utils/initleancloud');
+initLeanCloud();
+
+var stockApi = require('./routes/stock');
+var userApi = require('./routes/user');
 
 var app = express();
 var ejs = require('ejs');
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -33,11 +39,13 @@ app.get('/', (req, res) => {
     res.redirect('app');
 });
 
-app.get('/app', routes.index);
-app.get(/\/stock\/list/, routes.stock_list);
-app.get(/\/stock\/insert/, routes.stock_insert);
-app.get(/\/stock\/update/, routes.stock_update);
-app.get(/\/stock\/delete/, routes.stock_delete);
+app.use('/list', (req, res) => {
+    res.render('index');
+});
+
+// API路由
+app.use('/stock', stockApi);
+app.use('/user', userApi);
 
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
