@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "pm2": "pm2 start processes.json",    
     "start": "node ./bin/www",
     "start:strict": "node --use-strict ./bin/www"
   },

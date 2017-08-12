@@ -15,7 +15,7 @@ import IconSvg from '@/components/Icon-svg/index.vue'
 import * as filters from './filters'; // 全局vue filterF
 import vueWaves from './directive/waves';// 水波纹指令
 
-import './mock/index.js';  // 请求使用mockjs模拟
+// import './mock/index.js';  // 请求使用mockjs模拟
 
 Vue.config.productionTip = false
 

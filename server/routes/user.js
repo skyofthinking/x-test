@@ -3,17 +3,19 @@ var router = express.Router();
 var url = require('url');
 var AV = require('leancloud-storage');
 
+var result = {
+    code: 20000,
+    message: 'success',
+    data: {}
+};
+
 router.use('/login', (req, res) => {
     var query = url.parse(req.url, true).query;
 
-    var result = {
-        code: 20000,
-        message: 'success',
-        data: {}
-    };
+    console.log('1111111111' + query.name + ' ' + req.body.name);
 
     var InUser = new AV.Query('in_user');
-    InUser.equalTo('name', query.name);
+    InUser.equalTo('name', req.body.name);
     InUser.find().then(function (results) {
         result.data = results;
         res.send(result);
@@ -146,7 +148,7 @@ router.use('/delete', (req, res) => {
         res.send(result);
     }, function (error) {
         // 异常处理
-        console.error(error);        
+        console.error(error);
     });
 });
 

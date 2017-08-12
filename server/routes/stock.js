@@ -2,20 +2,20 @@ var express = require('express');
 var router = express.Router();
 var url = require('url');
 var AV = require('leancloud-storage');
+var table_name = 'in_user';
+
+var result = {
+    code: 20000,
+    message: 'success',
+    data: {}
+};
 
 router.use('/get', (req, res) => {
     var query = url.parse(req.url, true).query;
-
-    var result = {
-        code: 20000,
-        message: 'success',
-        data: {}
-    };
-
     var list = [];
 
-    var InUser = new AV.Query('in_user');
-    InUser.get(query.id).then(function (user) {
+    var InEntity = new AV.Query(table_name);
+    InEntity.get(query.id).then(function (user) {
         list.push(user)
 
         result.data = list;
@@ -27,14 +27,8 @@ router.use('/get', (req, res) => {
 });
 
 router.use('/list', (req, res) => {
-    var result = {
-        code: 20000,
-        message: 'success',
-        data: {}
-    };
-
-    var InUser = new AV.Query('in_user');
-    InUser.find().then(function (results) {
+    var InEntity = new AV.Query(table_name);
+    InEntity.find().then(function (results) {
         for (var i = 0; i < results.length; i++) {
             console.log(results[i].get("name"));
         }
@@ -57,15 +51,9 @@ router.use('/insert', (req, res) => {
         roles.push(query.role);
     }
 
-    var result = {
-        code: 20000,
-        message: 'success',
-        data: {}
-    };
-
-    var InUser = AV.Object.extend('in_user');
-    var inUser = new InUser();
-    inUser.save({
+    var InEntity = AV.Object.extend(table_name);
+    var inEntity = new InEntity();
+    inEntity.save({
         role: roles,
         token: query.token,
         avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
@@ -91,19 +79,13 @@ router.use('/update', (req, res) => {
         roles.push(query.role);
     }
 
-    var result = {
-        code: 20000,
-        message: 'success',
-        data: {}
-    };
-
-    var inUser = AV.Object.createWithoutData('in_user', query.id);
-    inUser.set('role', roles);
-    inUser.set('token', query.token || '');
-    inUser.set('avatar', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif');
-    inUser.set('name', query.name || '');
-    inUser.set('remark', query.remark || '');
-    inUser.save().then(function (object) {
+    var inEntity = AV.Object.createWithoutData(table_name, query.id);
+    inEntity.set('role', roles);
+    inEntity.set('token', query.token || '');
+    inEntity.set('avatar', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif');
+    inEntity.set('name', query.name || '');
+    inEntity.set('remark', query.remark || '');
+    inEntity.save().then(function (object) {
         console.log('object id = ' + object.id);
 
         res.send(result);
@@ -117,14 +99,8 @@ router.use('/delete', (req, res) => {
     var query = url.parse(req.url, true).query;
     var roles = [];
 
-    var result = {
-        code: 20000,
-        message: 'success',
-        data: {}
-    };
-
-    var inUser = AV.Object.createWithoutData('in_user', query.id);
-    inUser.destroy().then(function (success) {
+    var inEntity = AV.Object.createWithoutData(table_name, query.id);
+    inEntity.destroy().then(function (success) {
         res.send(result);
     }, function (error) {
         // 异常处理
