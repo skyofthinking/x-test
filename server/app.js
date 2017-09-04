@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-let fs = require('fs');
+var fs = require('fs');
 
 // init
 var initLeanCloud = require('./utils/initleancloud');
@@ -12,6 +12,7 @@ initLeanCloud();
 
 var stockApi = require('./routes/stock');
 var userApi = require('./routes/user');
+var tableApi = require('./routes/table');
 
 var app = express();
 var ejs = require('ejs');
@@ -25,7 +26,7 @@ app.all('*', function (req, res, next) {
     res.header("Content-Type", "application/json;charset=utf-8");
     
     if (req.method == 'OPTIONS') {
-        res.send(200); /让options请求快速返回/
+        res.send(200); // 让options请求快速返回
     }
     else {
         next();
@@ -61,6 +62,7 @@ app.use('/list', (req, res) => {
 // API路由
 app.use('/stock', stockApi);
 app.use('/user', userApi);
+app.use('/table', tableApi);
 
 app.use(function (req, res, next) {
     var err = new Error('Not Found');

@@ -7,10 +7,6 @@ body {
   font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
 }
 
-label {
-  font-weight: 700;
-}
-
 html {
   box-sizing: border-box;
 }
@@ -73,20 +69,3 @@ a:hover {
   overflow: hidden;
 }
 
-.filter-container {
-  padding-bottom: 10px;
-  .filter-item {
-    display: inline-block;
-    vertical-align: middle;
-    margin-bottom: 10px;
-  }
-}
-
-.link-type,
-.link-type:focus {
-  color: #337ab7;
-  cursor: pointer;
-  &:hover {
-    color: rgb(32, 160, 255);
-  }
-}
